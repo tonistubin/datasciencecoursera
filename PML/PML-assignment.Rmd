@@ -1,0 +1,122 @@
+#Practical Machine Learning Assignment
+
+##Abstract
+We use the weight lifting excercise dataset from http://groupware.les.inf.puc-rio.br/har for this assignment. In the dataset, six participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E). Class A corresponds to the specified execution of the exercise, while the other 4 classes correspond to common mistakes.
+
+The different classes were coded in the dataset as variable _classe_.
+
+In the second part of the assignment, we apply the machine learning algorithm created in this assignment to 20 test cases given by Coursera.
+
+More information of the original dataset is available from the website http://groupware.les.inf.puc-rio.br/har 
+
+Credit for the data: Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013.
+
+##Summary
+When the datasets were read in, it became evident that there were many columns with missing information or data that was not relevant for the task at hand. When the datasets were cleaned from superfluous information, I chose to use the random forest for creating the model and predicting the outcome.
+
+The result proved extremely accurate (about 99.4% with an error rate of 0.6 percent). When the model was run against the test cases, it produced the correct result.
+
+##Code, reasoning, and procedures
+To begin, we read in the datasets for training the model as well as doing the final tests.
+
+```{r}
+trainFile <- read.csv(file = "pml-training.csv", head = TRUE, sep = ",", na.strings=c("NA",""))
+testFile <- read.csv(file = "pml-testing.csv", head = TRUE, sep = ",", na.strings=c("NA",""))
+```
+
+Then we examine the properties of the datasets. The `testFile` contains the 20 cases used in the second part of the assignment. Our aim is to predict values for _classe_ variable (i.e. in which fashion the bicep curl is carried out) using the machine learning model we generate in this assignment.
+
+The output of the `head` commands is not printed here because or its excessive length.
+
+```{r}
+dim(trainFile)
+```
+
+```{r results='hide'}
+head(trainFile)
+head(testFile)
+```
+
+By looking at the dataset we see that there are many columns with N/A values that give no further information for the model. Also, the first seven variables hold no information that would be useful for the purpose of the model and predictions (for example, row numbers and timestamps).
+
+So, we start by cleaning the dataset by subsetting it so that the variables with no relevant information are excluded. We also set the seed value here for reproducibility.
+
+```{r message=FALSE, warning=FALSE}
+library(caret)
+library(randomForest)
+set.seed(5284)
+
+trainSet <- trainFile[ ,8:160]
+testSet <- testFile[ ,8:160]
+```
+
+Next, we remove all variables that contain more than half N/A values and can be considered of low relevance for the model for this reason.
+
+```{r}
+validCols <- apply(!is.na(trainSet),2,sum) > nrow(trainSet) / 2 #9811
+trainSet <- trainSet[,validCols]
+testSet <- testSet[,validCols]
+dim(trainSet)
+```
+
+We have now come down to 53 variables from the original 160. I also performed an additional check with `nearZeroVar` to see if there are any more superfluous predictors. The [, -53] removes the _classe_ column that is used as the outcome in the model.
+
+```{r}
+nearZeroVar(trainSet[, -53], saveMetric = TRUE)
+```
+
+From this we can see that we have a good set of predictors (no zero or near zero variance variables) and decide to do no further cleaning.
+
+##Fitting the model and cross-validation strategy
+
+Next, I split the training datase into training part (70% of the dataset) and validation part (the remaining 30%). After preliminaty testing, I decided to use random forest model for prediction (even though it really runs very slow). The number of folds was set to be 5.
+
+The documentation says (https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm) that in random forests, there is no need for cross-validation or a separate test set to get an unbiased estimate of the test set error. It is estimated internally, during the run.
+
+However, for the sake of this excercise, we'll also do a separete validation for our data.
+
+So, we'll split the cleaned training set into two where 70% will be the new set used for training and creating the model, and the remaining 30% is for validating.
+
+```{r}
+splitTrain <- createDataPartition(y=trainSet$classe, p=0.7, list=FALSE)
+training <- trainSet[splitTrain,]
+validating <- trainSet[-splitTrain,]
+modelFit <- train(classe ~ ., data = training, method = "rf", 
+                trControl = trainControl(method = "cv", number = 5))
+```
+
+Next, let's see how well our model performed. This is the model that has also been cross validated internally.
+
+```{r}
+print(modelFit)
+print(modelFit$finalModel)
+```
+
+We see that the model produces a very accurate result (around 99%), and that five folds have been used in resampling and cross-validating the dataset. The out-of-box error (OOB) is as low as 0.67%. We would expect the out-of-sample error also to be close to this figure.
+
+From the confusion matrix we can also see that a really small number of estimates go astray.
+
+##Checking cross-validation and out-of-sample error
+
+Next we'll do an additional check of the resluts using the validation dataset. We predict the result of the validation dataset against the model created using the training dataset. If our model is good, we should see an accuracy of over 99% and out-of-sample error in the neigborhood of 0.67%.
+
+```{r}
+crossValid <- predict(modelFit, validating)
+confValid <- confusionMatrix(validating$classe, crossValid)
+accuracy <- confValid$overall['Accuracy']
+samplError <- 1 - accuracy
+
+accuracy
+samplError
+```
+
+We see that the accuracy is 99.37% and the out-of-sample error correspondingly 0.63%. Considering our expectations, we can say that our model seems to be good.
+
+As a final stage, we predict the result of the 20 test cases to be used in the other part of this assignment. The result won't be printed out here, but when submitted it gave 100% correct answer, as expected.
+
+```{r}
+finalResult <- predict(modelFit, testSet)
+```
+
+
+
