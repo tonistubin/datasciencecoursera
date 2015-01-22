@@ -1,0 +1,81 @@
+CHARSET="ANSI";
+AXIS-VERSION="2000";
+LANGUAGE="en";
+LANGUAGES="en","fi";
+CREATION-DATE="20141212 06:31";
+DECIMALS=2;
+SHOWDECIMALS=2;
+MATRIX="t2020_31";
+SUBJECT-CODE="ENE";
+SUBJECT-AREA="Energy";
+SUBJECT-AREA[fi]="Energia";
+COPYRIGHT=YES;
+DESCRIPTION="Share of renewable energy in gross final energy consumption";
+DESCRIPTION[fi]="Share of renewable energy in gross final energy consumption";
+TITLE="Share of renewable energy in gross final energy consumption";
+TITLE[fi]="Share of renewable energy in gross final energy consumption";
+CONTENTS="Share of renewable energy in gross final energy consumption";
+CONTENTS[fi]="Share of renewable energy in gross final energy consumption";
+UNITS="none";
+UNITS[fi]="none";
+STUB="geo";
+STUB[fi]="geo";
+HEADING="time";
+HEADING[fi]="time";
+VALUES("geo")="Austria","Belgium","Bulgaria","Cyprus","Czech Republic","Germany (until 1990 former territory of the FRG)","Denmark","Estonia","Greece","Spain","European Union (27 countries)","European Union (28 countries)","Finland","France","Croatia","Hungary","Ireland","Iceland","Italy","Lithuania","Luxembourg","Latvia","Malta","Netherlands","Norway","Poland","Portugal","Romania","Sweden","Slovenia","Slovakia","United Kingdom";
+VALUES[fi]("geo")="Itävalta","Belgia","Bulgaria","Kypros","Tsekki","Saksa (ml. entinen DDR vuodesta 1991)","Tanska","Viro","Kreikka","Espanja","Euroopan Unioni (27 maata)","Euroopan Unioni (28 maata)","Suomi","Ranska","Kroatia","Unkari","Irlanti","Islanti","Italia","Liettua","Luxemburg","Latvia","Malta","Alankomaat","Norja","Puola","Portugali","Romania","Ruotsi","Slovenia","Slovakia","Britannia";
+VALUES("time")="2004","2005","2006","2007","2008","2009","2010","2011","2012","TARGET";
+VALUES[fi]("time")="2004","2005","2006","2007","2008","2009","2010","2011","2012","TARGET";
+CODES("geo")="AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","EU27","EU28","FI","FR","HR","HU","IE","IS","IT","LT","LU","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK";
+CODES[fi]("geo")="AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","EU27","EU28","FI","FR","HR","HU","IE","IS","IT","LT","LU","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK";
+CODES("time")="2004","2005","2006","2007","2008","2009","2010","2011","2012","TARGET";
+CODES[fi]("time")="2004","2005","2006","2007","2008","2009","2010","2011","2012","TARGET";
+DOMAIN("geo")="Eurostat";
+DOMAIN[fi]("geo")="Eurostat";
+LAST-UPDATED="20141210 00:00";
+CONTACT="e-mail: tietokannat@stat.fi#Tel. +358 9 1734 2354";
+CONTACT[fi]="Sähköposti: tietokannat@tilastokeskus.fi#Puhelin: (09) 1734 2354";
+SOURCE="Eurostat";
+SOURCE[fi]="Eurostat";
+NOTE="Percentage.#Share of renewables.#<a href=http://epp.eurostat"
+".ec.europa.eu/portal/page/portal/eurostat/home>#Eurostat Hom"
+"epage</a>#Eurostat table code: t2020_31#<a href=http://europ"
+"a.eu/geninfo/legal_notices_en.htm>#Eurostat disclaimer</a>";
+NOTE[fi]="Percentage.#Share of renewables.#<a href=http://epp.eurostat"
+".ec.europa.eu/portal/page/portal/eurostat/home>#Eurostatin k"
+"otisivu</a>#Eurostat taulukkokoodi: t2020_31#<a href=http://"
+"europa.eu/geninfo/legal_notices_en.htm>#Eurostat vastuuvapau"
+"slauseke</a>";
+DATA=
+22.70 24.00 25.60 27.50 28.30 30.40 30.80 30.80 32.10 34.00 
+1.90 2.30 2.70 3.00 3.30 4.60 5.00 5.20 6.80 13.00 
+9.60 9.50 9.70 9.40 10.70 12.40 14.40 14.60 16.30 16.00 
+3.10 3.10 3.30 4.00 5.10 5.60 6.00 6.00 6.80 13.00 
+5.90 6.00 6.40 7.40 7.60 8.50 9.30 9.30 11.20 13.00 
+5.80 6.70 7.70 9.00 8.50 9.90 10.70 11.60 12.40 18.00 
+14.50 15.60 15.90 17.90 18.60 20.40 22.60 24.00 26.00 30.00 
+18.40 17.50 16.10 17.10 18.90 23.00 24.60 25.60 25.80 25.00 
+6.90 7.00 7.20 8.20 8.00 8.50 9.80 10.90 13.80 18.00 
+8.30 8.40 9.20 9.70 10.80 13.00 13.80 13.20 14.30 20.00 
+"." "." "." "." "." "." "." "." "." 20.00 
+8.30 8.70 9.30 10.00 10.50 11.90 12.50 12.90 14.10 20.00 
+29.20 28.90 30.10 29.80 31.30 31.20 32.40 32.70 34.30 38.00 
+9.30 9.50 9.50 10.20 11.20 12.20 12.70 11.30 13.40 23.00 
+13.20 12.80 12.80 12.10 12.10 13.10 14.30 15.40 16.80 20.00 
+4.40 4.50 5.10 5.90 6.50 8.00 8.60 9.10 9.60 14.65 
+2.40 2.80 3.10 3.60 4.00 5.20 5.60 6.60 7.20 16.00 
+"." "." "." "." "." "." "." "." "." 64.00 
+5.70 5.90 6.40 6.50 7.40 9.30 10.60 12.30 13.50 17.00 
+17.20 17.00 17.00 16.70 18.00 20.00 19.80 20.20 21.70 23.00 
+0.90 1.40 1.50 2.70 2.80 2.90 2.90 2.90 3.10 11.00 
+32.80 32.30 31.10 29.60 29.80 34.30 32.50 33.50 35.80 40.00 
+0.30 0.30 0.40 0.40 0.40 0.40 0.40 0.70 2.70 10.00 
+1.90 2.30 2.60 3.10 3.40 4.10 3.70 4.30 4.50 14.00 
+58.10 59.80 60.20 60.20 61.80 64.80 61.20 64.60 64.50 67.50 
+7.00 7.00 7.00 7.00 7.80 8.80 9.30 10.40 11.00 15.00 
+19.20 19.50 20.70 21.90 22.90 24.50 24.20 24.50 24.60 31.00 
+16.80 17.60 17.10 18.30 20.40 22.60 23.20 21.20 22.90 24.00 
+38.70 40.50 42.60 44.10 45.20 48.20 47.20 48.80 51.00 49.00 
+16.10 16.00 15.60 15.60 15.00 18.90 19.20 19.40 20.20 25.00 
+5.30 5.50 5.90 7.30 7.50 9.30 9.00 10.30 10.40 14.00 
+1.20 1.40 1.60 1.80 2.40 3.00 3.30 3.80 4.20 15.00;
