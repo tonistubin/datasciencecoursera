@@ -25,6 +25,7 @@ shinyServer(
             #get values
             values <- country$value[1:9]
             times <- as.numeric(as.character(country$time[1:9]))
+            years <- times - 2003
             target <- country$value[10]
             
             #set y-axis topvalue
@@ -40,24 +41,22 @@ shinyServer(
             
             #predict by simple linear regression
             regression <- lm(values ~ times)      
-            future <- predict(regression, data.frame(times = c(2013:predictyear)))
+            #future <- predict(regression, data.frame(times = c(2013:predictyear)))
             
-            #Find out when target is reached:
-            future100 <- predict(regression, data.frame(times = c(2013:2063)))
-            valuereached <- which(future100 > target)[1]
-            reachedyear <- 2012 + as.numeric(valuereached)
-            predictvalue <- future[predictyear - 2012]
-            #predictfromtarget <- round((predictvalue / target) * 100)
+            #find out when target will be reached from intercept and slope values
+            reachedyear <- round((target - coef(regression)[1]) / coef(regression)[2])
+            
+            #find the value in the year of prediction
+            predictvalue <- (predictyear * coef(regression)[2]) + coef(regression)[1]
             predictfromtarget <- round(target - predictvalue, 1)
+            #predictfromtarget <- round((predictvalue / target) * 100)
             
             if(predictyear != 2012) {
-                #add new years in x-axis and predicted values to y-axis
+                #add new years in x-axis
                 times <- c(times, 2013:predictyear)
                 #values <- c(values, future[1:numyear])
-                startpredictx <- 9
-                endpredictx <- numyear
-                startpredicty <- values[9]
-                endpredicty <- tail(future, n = 1)
+                startvalue <- 2004 * coef(regression)[2] + coef(regression)[1]
+                endvalue <- predictyear * coef(regression)[2] + coef(regression)[1]
             }
             
             #draw the plot
@@ -68,10 +67,10 @@ shinyServer(
             abline(h = target, col = "red", lwd = 2)
             
             #add prediction line
-            if(predictyear != 2012) segments(startpredictx, startpredicty, endpredictx, 
-                                             endpredicty, col = "purple", lwd = 2, lty = 2)
+            #if(predictyear != 2012) abline(lm(values ~ years), col = "purple", lwd = 2, lty = 2)
+            if(predictyear != 2012) segments(1, startvalue, numyear, endvalue, col = "purple", lwd = 2, lty = 2)
             
-            title(main = name, xlab = "Year", ylab = "% from total energy use")
+            title(main = name, xlab = "Year", ylab = "% of total energy use")
             legend("bottomright", c("Ren. energy", "Target", "Prediction"), lty = c(1, 1, 2), col = c("blue", "red", "purple"))
             
             
@@ -91,7 +90,7 @@ shinyServer(
                 if(predictyear == 2012){
                     paste("")
                 } else if(predictyear >= reachedyear){
-                    paste("Prediction: ", name, "has already reached the target.")
+                    paste("Prediction: In ", predictyear, name, "has already reached the target.")
                 } else 
                     paste("Prediction: In ", predictyear, name, " is still ", 
                           predictfromtarget, "percentage points away from the target.",

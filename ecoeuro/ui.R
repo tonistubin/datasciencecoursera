@@ -35,8 +35,7 @@ shinyUI(fluidPage(
                       textOutput("text2"),
                       
                       HTML("<BR><I><STRONG>Instructions:</STRONG></I> <P>Select a country from the drop-down list on
-           top right to see how well they perform. The initial graph shows the average renewable energy
-           use in 28 European Union countries. The red line shows the target level and the blue line shows 
+           top right to see how well it performs. The red line shows the target level and the blue line shows 
            actual figures from 2004 to 2012. Please note that the y-axis scale  
            varies between different countries, because they have different targets
            for renewable energy use.</P><P>Below the country selection box you can select a year in the 
@@ -44,8 +43,9 @@ shinyUI(fluidPage(
            as it has been doing between 2004 and 2012. The prediction is based on a simple linear model and shown here as a
            purple dotted line. The text also the tells the year the target would be reached.</P><P>The data
            used for the calculations comes from <A HREF=\"http://ec.europa.eu/eurostat/web/products-datasets/-/t2020_31\" target=_blank>Eurostat</A>
-           Share of Renewable Energy in Gross Final Energy Consumption, code t2020_31. The dataset is 
-           used here as is without any modifications to the original data.</P>")
+           Share of Renewable Energy in Gross Final Energy Consumption, code t2020_31. The dataset was downloaded from
+           <A HREF=\"http://pxweb2.stat.fi/Database/Eurostat/ene/ene_en.asp\" target=_blank>Statistics Finland's site</A> and
+           used here as is without modifications.</P>")
                   )
     )
 ))
